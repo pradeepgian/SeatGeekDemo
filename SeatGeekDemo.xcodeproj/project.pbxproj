@@ -94,7 +94,6 @@
 			isa = PBXGroup;
 			children = (
 				80DB6A0A26A1FDAF0037E401 /* User Interface */,
-				80DB6A0B26A1FDB60037E401 /* Views */,
 				80DB6A0C26A1FDBC0037E401 /* Model */,
 				80DB6A0D26A1FDC10037E401 /* API */,
 				80DB6A0E26A1FDCD0037E401 /* Extensions */,
@@ -115,13 +114,6 @@
 				80DB6A1B26A2A6AC0037E401 /* Search */,
 			);
 			path = "User Interface";
-			sourceTree = "<group>";
-		};
-		80DB6A0B26A1FDB60037E401 /* Views */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Views;
 			sourceTree = "<group>";
 		};
 		80DB6A0C26A1FDBC0037E401 /* Model */ = {

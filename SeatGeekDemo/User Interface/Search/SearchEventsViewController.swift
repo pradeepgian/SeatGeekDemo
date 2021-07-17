@@ -20,6 +20,10 @@ class SearchEventsViewController: UICollectionViewController, UICollectionViewDe
         fetchEvents()
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        collectionView.reloadData()
+    }
+    
     fileprivate func setupSearchBar() {
         definesPresentationContext = true
         navigationItem.searchController = self.searchController
@@ -73,7 +77,7 @@ class SearchEventsViewController: UICollectionViewController, UICollectionViewDe
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         let width = (view.frame.width - 2 * 16)
-        return .init(width: width, height: 90)
+        return .init(width: width, height: 110)
     }
     
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {

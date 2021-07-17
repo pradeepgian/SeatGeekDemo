@@ -24,6 +24,8 @@ class EventCell: UICollectionViewCell {
             let timeStamp = dateFormatter.string(from: date!)
             timestampLabel.text = timeStamp
             
+            favoriteBadgeImageView.isHidden =  event.isFavorite ? false : true
+            
             guard let city = event.venue.city,
                   let state = event.venue.state else { return }
             locationLabel.text = "\(city), \(state)"
@@ -35,18 +37,30 @@ class EventCell: UICollectionViewCell {
     let eventNameLabel = UILabel(text: "Event Name", font: .boldSystemFont(ofSize: 16), textColor: .black, numberOfLines: 2, alignment: .left)
     let locationLabel = UILabel(text: "Location", font: .systemFont(ofSize: 13), textColor: .black, numberOfLines: 1, alignment: .left)
     let timestampLabel = UILabel(text: "Time Stamp", font: .systemFont(ofSize: 13), textColor: .black, numberOfLines: 1, alignment: .left)
+    let favoriteBadgeImageView = UIImageView(image: #imageLiteral(resourceName: "like_selected"))
+    
+    lazy var imageWithFavoriteBadgeView: UIView = {
+        let view = UIView()
+        view.addSubview(eventImageView)
+        view.addSubview(favoriteBadgeImageView)
+        favoriteBadgeImageView.constrainWidth(constant: 30)
+        favoriteBadgeImageView.constrainHeight(constant: 30)
+        eventImageView.fillSuperview()
+        eventImageView.contentMode = .scaleAspectFill
+        favoriteBadgeImageView.anchor(top: eventImageView.topAnchor, leading: eventImageView.leadingAnchor, bottom: nil, trailing: nil, padding: .init(top: -15, left: -15, bottom: 0, right: 0))
+        return view
+    }()
     
     override init(frame: CGRect) {
         super.init(frame: frame)
         stylizeCell()
-        eventImageView.constrainWidth(constant: 64)
-        eventImageView.constrainHeight(constant: 64)
+        eventImageView.constrainWidth(constant: 80)
+        eventImageView.constrainHeight(constant: 80)
         
-        let stackView = StackView(arrangedSubviews: [eventImageView, StackView(axis: .vertical, arrangedSubviews: [eventNameLabel, locationLabel, timestampLabel], spacing: 3, alignment: .leading)], spacing: 10, alignment: .center)
+        let stackView = StackView(arrangedSubviews: [imageWithFavoriteBadgeView, StackView(axis: .vertical, arrangedSubviews: [eventNameLabel, locationLabel, timestampLabel], spacing: 3, alignment: .leading)], spacing: 10, alignment: .center)
         stackView.spacing = 16
-        
         contentView.addSubview(stackView)
-        stackView.fillSuperview(padding: .init(top: 8, left: 12, bottom: 8, right: 8))
+        stackView.fillSuperview(padding: .init(top: 8, left: 20, bottom: 8, right: 8))
     }
     
     required init?(coder aDecoder: NSCoder) {

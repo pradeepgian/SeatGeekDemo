@@ -49,7 +49,7 @@ class EventDetailViewController: UIViewController {
         return imageView
     }()
     
-    lazy var eventNameStackView = StackView(arrangedSubviews: [eventNameLabel, likeButton], alignment: .top)
+    lazy var eventNameStackView = StackView(arrangedSubviews: [eventNameLabel, likeButton], spacing: 15, alignment: .top)
     
     lazy var eventDetailStackView = StackView(axis: .vertical, arrangedSubviews: [
         eventNameStackView,
@@ -84,7 +84,7 @@ class EventDetailViewController: UIViewController {
         view.addSubview(eventDetailStackView)
         eventNameStackView.anchor(top: eventDetailStackView.topAnchor, leading: eventDetailStackView.leadingAnchor, bottom: nil, trailing: eventDetailStackView.trailingAnchor)
         eventImageView.constrainWidth(constant: self.view.frame.width - 2 * 10)
-        eventDetailStackView.anchor(top: view.safeAreaLayoutGuide.topAnchor, leading: view.leadingAnchor, bottom: nil, trailing: view.trailingAnchor, padding: .init(top: 10, left: 10, bottom: 0, right: 10))
+        eventDetailStackView.anchor(top: view.safeAreaLayoutGuide.topAnchor, leading: view.leadingAnchor, bottom: nil, trailing: view.trailingAnchor, padding: .init(top: 10, left: 12, bottom: 0, right: 12))
     }
     
 }

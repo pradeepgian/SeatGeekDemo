@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 51;
+	objectVersion = 52;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -24,11 +24,10 @@
 		80DB6A2326A2CEB30037E401 /* Date+Helper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80DB6A2226A2CEB30037E401 /* Date+Helper.swift */; };
 		80DB6A2626A2EDEF0037E401 /* EventDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80DB6A2526A2EDEF0037E401 /* EventDetailViewController.swift */; };
 		80DB6A2826A2FE210037E401 /* UserDefaultsExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80DB6A2726A2FE210037E401 /* UserDefaultsExtension.swift */; };
-		ABAADCE934274ACCB85A8292 /* Pods_SeatGeekDemo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 077045E94802D5AF3E728EE8 /* Pods_SeatGeekDemo.framework */; };
+		80DB6A2B26A3562E0037E401 /* SDWebImage in Frameworks */ = {isa = PBXBuildFile; productRef = 80DB6A2A26A3562E0037E401 /* SDWebImage */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		077045E94802D5AF3E728EE8 /* Pods_SeatGeekDemo.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_SeatGeekDemo.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		80DB69F326A1FD6D0037E401 /* SeatGeekDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SeatGeekDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		80DB69F626A1FD6D0037E401 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		80DB69F826A1FD6D0037E401 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -48,8 +47,6 @@
 		80DB6A2226A2CEB30037E401 /* Date+Helper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+Helper.swift"; sourceTree = "<group>"; };
 		80DB6A2526A2EDEF0037E401 /* EventDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventDetailViewController.swift; sourceTree = "<group>"; };
 		80DB6A2726A2FE210037E401 /* UserDefaultsExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaultsExtension.swift; sourceTree = "<group>"; };
-		C454F5494BD818D74D4E43C0 /* Pods-SeatGeekDemo.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SeatGeekDemo.debug.xcconfig"; path = "Target Support Files/Pods-SeatGeekDemo/Pods-SeatGeekDemo.debug.xcconfig"; sourceTree = "<group>"; };
-		EC883C9FC28F294E30249451 /* Pods-SeatGeekDemo.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SeatGeekDemo.release.xcconfig"; path = "Target Support Files/Pods-SeatGeekDemo/Pods-SeatGeekDemo.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -57,28 +54,18 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				ABAADCE934274ACCB85A8292 /* Pods_SeatGeekDemo.framework in Frameworks */,
+				80DB6A2B26A3562E0037E401 /* SDWebImage in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		11083CCFD5663D59A49CCE49 /* Frameworks */ = {
-			isa = PBXGroup;
-			children = (
-				077045E94802D5AF3E728EE8 /* Pods_SeatGeekDemo.framework */,
-			);
-			name = Frameworks;
-			sourceTree = "<group>";
-		};
 		80DB69EA26A1FD6D0037E401 = {
 			isa = PBXGroup;
 			children = (
 				80DB69F526A1FD6D0037E401 /* SeatGeekDemo */,
 				80DB69F426A1FD6D0037E401 /* Products */,
-				BE5303EC29868C393F348EE1 /* Pods */,
-				11083CCFD5663D59A49CCE49 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -163,15 +150,6 @@
 			path = EventDetail;
 			sourceTree = "<group>";
 		};
-		BE5303EC29868C393F348EE1 /* Pods */ = {
-			isa = PBXGroup;
-			children = (
-				C454F5494BD818D74D4E43C0 /* Pods-SeatGeekDemo.debug.xcconfig */,
-				EC883C9FC28F294E30249451 /* Pods-SeatGeekDemo.release.xcconfig */,
-			);
-			path = Pods;
-			sourceTree = "<group>";
-		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -179,17 +157,18 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 80DB6A0726A1FD700037E401 /* Build configuration list for PBXNativeTarget "SeatGeekDemo" */;
 			buildPhases = (
-				4CEF574FD07F404160ED0A60 /* [CP] Check Pods Manifest.lock */,
 				80DB69EF26A1FD6D0037E401 /* Sources */,
 				80DB69F026A1FD6D0037E401 /* Frameworks */,
 				80DB69F126A1FD6D0037E401 /* Resources */,
-				B63E3A030E3B8BE6995C8021 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
 			dependencies = (
 			);
 			name = SeatGeekDemo;
+			packageProductDependencies = (
+				80DB6A2A26A3562E0037E401 /* SDWebImage */,
+			);
 			productName = SeatGeekDemo;
 			productReference = 80DB69F326A1FD6D0037E401 /* SeatGeekDemo.app */;
 			productType = "com.apple.product-type.application";
@@ -217,6 +196,9 @@
 				Base,
 			);
 			mainGroup = 80DB69EA26A1FD6D0037E401;
+			packageReferences = (
+				80DB6A2926A3562E0037E401 /* XCRemoteSwiftPackageReference "SDWebImage" */,
+			);
 			productRefGroup = 80DB69F426A1FD6D0037E401 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -238,48 +220,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
-
-/* Begin PBXShellScriptBuildPhase section */
-		4CEF574FD07F404160ED0A60 /* [CP] Check Pods Manifest.lock */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
-				"${PODS_ROOT}/Manifest.lock",
-			);
-			name = "[CP] Check Pods Manifest.lock";
-			outputFileListPaths = (
-			);
-			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-SeatGeekDemo-checkManifestLockResult.txt",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
-			showEnvVarsInLog = 0;
-		};
-		B63E3A030E3B8BE6995C8021 /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-SeatGeekDemo/Pods-SeatGeekDemo-frameworks-${CONFIGURATION}-input-files.xcfilelist",
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-SeatGeekDemo/Pods-SeatGeekDemo-frameworks-${CONFIGURATION}-output-files.xcfilelist",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-SeatGeekDemo/Pods-SeatGeekDemo-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		80DB69EF26A1FD6D0037E401 /* Sources */ = {
@@ -443,7 +383,6 @@
 		};
 		80DB6A0826A1FD700037E401 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = C454F5494BD818D74D4E43C0 /* Pods-SeatGeekDemo.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -463,7 +402,6 @@
 		};
 		80DB6A0926A1FD700037E401 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = EC883C9FC28F294E30249451 /* Pods-SeatGeekDemo.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -503,6 +441,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		80DB6A2926A3562E0037E401 /* XCRemoteSwiftPackageReference "SDWebImage" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/SDWebImage/SDWebImage.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 5.11.1;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		80DB6A2A26A3562E0037E401 /* SDWebImage */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 80DB6A2926A3562E0037E401 /* XCRemoteSwiftPackageReference "SDWebImage" */;
+			productName = SDWebImage;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 80DB69EB26A1FD6D0037E401 /* Project object */;
 }

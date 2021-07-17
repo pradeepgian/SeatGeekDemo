@@ -22,6 +22,8 @@
 		80DB6A1F26A2A9D10037E401 /* UIImageView+Style.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80DB6A1E26A2A9D10037E401 /* UIImageView+Style.swift */; };
 		80DB6A2126A2B2D30037E401 /* CALayer+Shadow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80DB6A2026A2B2D30037E401 /* CALayer+Shadow.swift */; };
 		80DB6A2326A2CEB30037E401 /* Date+Helper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80DB6A2226A2CEB30037E401 /* Date+Helper.swift */; };
+		80DB6A2626A2EDEF0037E401 /* EventDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80DB6A2526A2EDEF0037E401 /* EventDetailViewController.swift */; };
+		80DB6A2826A2FE210037E401 /* UserDefaultsExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80DB6A2726A2FE210037E401 /* UserDefaultsExtension.swift */; };
 		ABAADCE934274ACCB85A8292 /* Pods_SeatGeekDemo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 077045E94802D5AF3E728EE8 /* Pods_SeatGeekDemo.framework */; };
 /* End PBXBuildFile section */
 
@@ -44,6 +46,8 @@
 		80DB6A1E26A2A9D10037E401 /* UIImageView+Style.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImageView+Style.swift"; sourceTree = "<group>"; };
 		80DB6A2026A2B2D30037E401 /* CALayer+Shadow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CALayer+Shadow.swift"; sourceTree = "<group>"; };
 		80DB6A2226A2CEB30037E401 /* Date+Helper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+Helper.swift"; sourceTree = "<group>"; };
+		80DB6A2526A2EDEF0037E401 /* EventDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventDetailViewController.swift; sourceTree = "<group>"; };
+		80DB6A2726A2FE210037E401 /* UserDefaultsExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaultsExtension.swift; sourceTree = "<group>"; };
 		C454F5494BD818D74D4E43C0 /* Pods-SeatGeekDemo.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SeatGeekDemo.debug.xcconfig"; path = "Target Support Files/Pods-SeatGeekDemo/Pods-SeatGeekDemo.debug.xcconfig"; sourceTree = "<group>"; };
 		EC883C9FC28F294E30249451 /* Pods-SeatGeekDemo.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SeatGeekDemo.release.xcconfig"; path = "Target Support Files/Pods-SeatGeekDemo/Pods-SeatGeekDemo.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -107,6 +111,7 @@
 		80DB6A0A26A1FDAF0037E401 /* User Interface */ = {
 			isa = PBXGroup;
 			children = (
+				80DB6A2426A2EDD20037E401 /* EventDetail */,
 				80DB6A1B26A2A6AC0037E401 /* Search */,
 			);
 			path = "User Interface";
@@ -144,6 +149,7 @@
 				80DB6A1E26A2A9D10037E401 /* UIImageView+Style.swift */,
 				80DB6A2026A2B2D30037E401 /* CALayer+Shadow.swift */,
 				80DB6A2226A2CEB30037E401 /* Date+Helper.swift */,
+				80DB6A2726A2FE210037E401 /* UserDefaultsExtension.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -155,6 +161,14 @@
 				80DB6A1C26A2A7A10037E401 /* EventCell.swift */,
 			);
 			path = Search;
+			sourceTree = "<group>";
+		};
+		80DB6A2426A2EDD20037E401 /* EventDetail */ = {
+			isa = PBXGroup;
+			children = (
+				80DB6A2526A2EDEF0037E401 /* EventDetailViewController.swift */,
+			);
+			path = EventDetail;
 			sourceTree = "<group>";
 		};
 		BE5303EC29868C393F348EE1 /* Pods */ = {
@@ -282,6 +296,7 @@
 			files = (
 				80DB69F726A1FD6D0037E401 /* AppDelegate.swift in Sources */,
 				80DB6A1826A2A3400037E401 /* SearchResult.swift in Sources */,
+				80DB6A2626A2EDEF0037E401 /* EventDetailViewController.swift in Sources */,
 				80DB6A1F26A2A9D10037E401 /* UIImageView+Style.swift in Sources */,
 				80DB6A1626A1FFFE0037E401 /* SeatGeekAPI.swift in Sources */,
 				80DB6A2126A2B2D30037E401 /* CALayer+Shadow.swift in Sources */,
@@ -291,6 +306,7 @@
 				80DB6A1026A1FDF80037E401 /* UIView+AnchoredConstraints.swift in Sources */,
 				80DB69F926A1FD6D0037E401 /* SceneDelegate.swift in Sources */,
 				80DB6A1226A1FF160037E401 /* StackViewExtension.swift in Sources */,
+				80DB6A2826A2FE210037E401 /* UserDefaultsExtension.swift in Sources */,
 				80DB6A2326A2CEB30037E401 /* Date+Helper.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

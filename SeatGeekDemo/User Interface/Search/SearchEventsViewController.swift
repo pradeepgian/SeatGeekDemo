@@ -77,7 +77,6 @@ class SearchEventsViewController: UICollectionViewController, UICollectionViewDe
     }
     
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-//        enterSearchTermLabel.isHidden = events.count != 0
         return events.count
     }
     
@@ -85,6 +84,12 @@ class SearchEventsViewController: UICollectionViewController, UICollectionViewDe
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: EventCell.cellIdentifier, for: indexPath) as! EventCell
         cell.event = events[indexPath.item]
         return cell
+    }
+    
+    override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let eventDetailController = EventDetailViewController()
+        eventDetailController.event = events[indexPath.row]
+        navigationController?.pushViewController(eventDetailController, animated: true)
     }
     
     init() {
@@ -97,6 +102,8 @@ class SearchEventsViewController: UICollectionViewController, UICollectionViewDe
     
     
 }
+
+#if DEBUG
 
 import SwiftUI
 struct EventsView: UIViewControllerRepresentable {
@@ -119,3 +126,5 @@ struct EventsCompositionalView_Previews: PreviewProvider {
             .colorScheme(.dark)
     }
 }
+
+#endif

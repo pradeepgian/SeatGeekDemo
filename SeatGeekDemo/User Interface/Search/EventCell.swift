@@ -14,18 +14,10 @@ class EventCell: UICollectionViewCell {
         didSet {
             eventImageView.sd_setImage(with: URL(string: event.performers[0].image ?? ""))
             eventNameLabel.text = event.title
-            
-            let dateFormatter = DateFormatter()
-            dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss"
-            dateFormatter.timeZone = TimeZone(abbreviation: "UTC")
-            let date = dateFormatter.date(from: event.datetime_utc ?? "")
-            dateFormatter.dateFormat = "EEEE, MMM d yyyy h:mm a"
-            dateFormatter.timeZone = TimeZone.current
-            let timeStamp = dateFormatter.string(from: date!)
-            timestampLabel.text = timeStamp
-            
+            let datetime_utc = event.datetime_utc.getDate(timezone: TimeZone.utc)
+            let timeStampStr = datetime_utc?.toString(timezone: TimeZone.current)
+            timestampLabel.text = timeStampStr
             favoriteBadgeImageView.isHidden =  event.isFavorite ? false : true
-            
             guard let city = event.venue.city,
                   let state = event.venue.state else { return }
             locationLabel.text = "\(city), \(state)"

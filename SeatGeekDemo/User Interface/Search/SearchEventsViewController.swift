@@ -9,7 +9,7 @@ import UIKit
 
 class SearchEventsViewController: UICollectionViewController, UICollectionViewDelegateFlowLayout, UISearchBarDelegate {
     
-    fileprivate let searchController = UISearchController(searchResultsController: nil)
+    private let searchController = UISearchController(searchResultsController: nil)
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -24,7 +24,7 @@ class SearchEventsViewController: UICollectionViewController, UICollectionViewDe
         collectionView.reloadData()
     }
     
-    fileprivate func setupSearchBar() {
+    private func setupSearchBar() {
         definesPresentationContext = true
         navigationItem.searchController = self.searchController
         navigationItem.hidesSearchBarWhenScrolling = false
@@ -32,7 +32,7 @@ class SearchEventsViewController: UICollectionViewController, UICollectionViewDe
         searchController.searchBar.delegate = self
     }
     
-    var timer: Timer?
+    private var timer: Timer?
     
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
         print(searchText)
@@ -60,9 +60,9 @@ class SearchEventsViewController: UICollectionViewController, UICollectionViewDe
         })
     }
     
-    fileprivate var events = [Event]()
+    private var events = [Event]()
     
-    fileprivate func fetchEvents() {
+    private func fetchEvents() {
         SeatGeekAPI.shared.fetchEvents(searchTerm: "") { (res, err) in
             if let err = err {
                 print("Failed to fetch events:", err)
@@ -91,8 +91,7 @@ class SearchEventsViewController: UICollectionViewController, UICollectionViewDe
     }
     
     override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        let eventDetailController = EventDetailViewController()
-        eventDetailController.event = events[indexPath.row]
+        let eventDetailController = EventDetailViewController(event: events[indexPath.row])
         navigationController?.pushViewController(eventDetailController, animated: true)
     }
     

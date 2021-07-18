@@ -9,7 +9,7 @@ import UIKit
 
 class EventDetailViewController: UIViewController {
     
-    var event: Event! {
+    private var event: Event! {
         didSet {
             eventImageView.sd_setImage(with: URL(string: event.performers[0].image ?? ""))
             eventNameLabel.text = event.title
@@ -31,11 +31,11 @@ class EventDetailViewController: UIViewController {
             locationLabel.text = "\(city), \(state)"
         }
     }
-    fileprivate let eventNameLabel = UILabel(text: "Event Name", font: .boldSystemFont(ofSize: 20), textColor: .black, numberOfLines: 0, alignment: .left)
-    fileprivate let timestampLabel = UILabel(text: "Time Stamp", font: .boldSystemFont(ofSize: 20), textColor: .black, numberOfLines: 1, alignment: .left)
-    fileprivate let locationLabel = UILabel(text: "Location", font: .systemFont(ofSize: 13), textColor: .black, numberOfLines: 1, alignment: .left)
+    private let eventNameLabel = UILabel(text: "Event Name", font: .boldSystemFont(ofSize: 20), textColor: .black, numberOfLines: 0, alignment: .left)
+    private let timestampLabel = UILabel(text: "Time Stamp", font: .boldSystemFont(ofSize: 20), textColor: .black, numberOfLines: 1, alignment: .left)
+    private let locationLabel = UILabel(text: "Location", font: .systemFont(ofSize: 13), textColor: .black, numberOfLines: 1, alignment: .left)
     
-    lazy fileprivate var likeButton: UIButton = {
+    lazy private var likeButton: UIButton = {
         let button = UIButton(type: .custom)
         button.constrainWidth(constant: 25)
         button.constrainHeight(constant: 25)
@@ -43,25 +43,33 @@ class EventDetailViewController: UIViewController {
         return button
     }()
     
-    fileprivate let eventImageView: UIImageView = {
+    private let eventImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.contentMode = .scaleAspectFit
         return imageView
     }()
     
-    lazy var eventNameStackView = StackView(arrangedSubviews: [eventNameLabel, likeButton], spacing: 15, alignment: .top)
+    lazy private var eventNameStackView = StackView(arrangedSubviews: [eventNameLabel, likeButton], spacing: 15, alignment: .top)
     
-    lazy var eventDetailStackView = StackView(axis: .vertical, arrangedSubviews: [
+    lazy private var eventDetailStackView = StackView(axis: .vertical, arrangedSubviews: [
         eventNameStackView,
         StackView(arrangedSubviews: [eventImageView], alignment: .center),
         timestampLabel,
         locationLabel
     ], spacing: 10, alignment: .leading)
     
-//    init(event: Event) {
-//        self.event = event
-//        super.init(nibName: nil, bundle: nil)
-//    }
+    init(event: Event) {
+        super.init(nibName: nil, bundle: nil)
+        setEvent(event)
+    }
+    
+    private func setEvent(_ event: Event) {
+        self.event = event
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
     
     @objc func handleLike() {
         if self.event.isFavorite {
@@ -89,28 +97,28 @@ class EventDetailViewController: UIViewController {
     
 }
 
-#if DEBUG
-
-import SwiftUI
-struct EventDetailsView: UIViewControllerRepresentable {
-    func makeUIViewController(context: UIViewControllerRepresentableContext<EventDetailsView>) -> UIViewController {
-        let controller = EventDetailViewController()
-        return UINavigationController(rootViewController: controller)
-    }
-    
-    func updateUIViewController(_ uiViewController: UIViewController, context: UIViewControllerRepresentableContext<EventDetailsView>) {
-        
-    }
-    
-    typealias UIViewControllerType = UIViewController
-}
-
-struct EventDetailsCompositionalView_Previews: PreviewProvider {
-    static var previews: some View {
-        EventDetailsView()
-            .edgesIgnoringSafeArea(.all)
-            .colorScheme(.dark)
-    }
-}
-
-#endif
+//#if DEBUG
+//
+//import SwiftUI
+//struct EventDetailsView: UIViewControllerRepresentable {
+//    func makeUIViewController(context: UIViewControllerRepresentableContext<EventDetailsView>) -> UIViewController {
+//        let controller = EventDetailViewController()
+//        return UINavigationController(rootViewController: controller)
+//    }
+//    
+//    func updateUIViewController(_ uiViewController: UIViewController, context: UIViewControllerRepresentableContext<EventDetailsView>) {
+//        
+//    }
+//    
+//    typealias UIViewControllerType = UIViewController
+//}
+//
+//struct EventDetailsCompositionalView_Previews: PreviewProvider {
+//    static var previews: some View {
+//        EventDetailsView()
+//            .edgesIgnoringSafeArea(.all)
+//            .colorScheme(.dark)
+//    }
+//}
+//
+//#endif

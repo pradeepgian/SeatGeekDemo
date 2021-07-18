@@ -11,7 +11,7 @@ class SeatGeekAPI {
     static let shared = SeatGeekAPI()
     
     func fetchEvents(searchTerm: String, completion: @escaping (SearchResult?, Error?) -> ()) {
-        let urlString = "https://api.seatgeek.com/2/events?client_id=MjI1NDg5OTN8MTYyNjQ1MDgyMi4yMzI1NDQ&client_secret=746477eaa01142f0d58ea92741e631f67c94738afa84e89328c09d823dbbd47e&q=\(searchTerm)"
+        let urlString = "https://api.seatgeek.com/2/events?client_id=MjI1NDg5OTN8MTYyNjQ1MDgyMi4yMzI1NDQ&q=\(searchTerm)"
         fetchGenericJSONData(urlString: urlString, completion: completion)
     }
     

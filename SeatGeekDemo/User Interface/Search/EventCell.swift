@@ -33,13 +33,13 @@ class EventCell: UICollectionViewCell {
     }
     
     static let cellIdentifier = "EventCell_Identifier"
-    let eventImageView = UIImageView(cornerRadius: 8)
-    let eventNameLabel = UILabel(text: "Event Name", font: .boldSystemFont(ofSize: 16), textColor: .black, numberOfLines: 2, alignment: .left)
-    let locationLabel = UILabel(text: "Location", font: .systemFont(ofSize: 13), textColor: .black, numberOfLines: 1, alignment: .left)
-    let timestampLabel = UILabel(text: "Time Stamp", font: .systemFont(ofSize: 13), textColor: .black, numberOfLines: 1, alignment: .left)
-    let favoriteBadgeImageView = UIImageView(image: #imageLiteral(resourceName: "like_selected"))
+    private let eventImageView = UIImageView(cornerRadius: 8)
+    private let eventNameLabel = UILabel(text: "Event Name", font: .boldSystemFont(ofSize: 16), textColor: .black, numberOfLines: 2, alignment: .left)
+    private let locationLabel = UILabel(text: "Location", font: .systemFont(ofSize: 13), textColor: .black, numberOfLines: 1, alignment: .left)
+    private let timestampLabel = UILabel(text: "Time Stamp", font: .systemFont(ofSize: 13), textColor: .black, numberOfLines: 1, alignment: .left)
+    private let favoriteBadgeImageView = UIImageView(image: #imageLiteral(resourceName: "like_selected"))
     
-    lazy var imageWithFavoriteBadgeView: UIView = {
+    lazy private var imageWithFavoriteBadgeView: UIView = {
         let view = UIView()
         view.addSubview(eventImageView)
         view.addSubview(favoriteBadgeImageView)
@@ -67,7 +67,7 @@ class EventCell: UICollectionViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
-    fileprivate func stylizeCell() {
+    private func stylizeCell() {
         self.backgroundView = UIView()
         addSubview(self.backgroundView!)
         self.backgroundView?.fillSuperview()

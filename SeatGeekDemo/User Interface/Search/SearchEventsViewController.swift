@@ -39,31 +39,16 @@ class SearchEventsViewController: UICollectionViewController, UICollectionViewDe
         
         // introduce some delay before performing the search
         // throttling the search
-        
         timer?.invalidate()
-        
         timer = Timer.scheduledTimer(withTimeInterval: 0.5, repeats: false, block: { (_) in
-            
-            // this will actually fire my search
-            SeatGeekAPI.shared.fetchEvents(searchTerm: searchText) { (res, err) in
-                if let err = err {
-                    print("Failed to fetch events:", err)
-                    return
-                }
-                
-                self.events = res?.events ?? []
-                DispatchQueue.main.async {
-                    self.collectionView.reloadData()
-                }
-            }
-            
+            self.fetchEvents(searchText)
         })
     }
     
     private var events = [Event]()
     
-    private func fetchEvents() {
-        SeatGeekAPI.shared.fetchEvents(searchTerm: "") { (res, err) in
+    private func fetchEvents(_ searchText: String? = nil) {
+        SeatGeekAPI.shared.fetchEvents(searchTerm: searchText) { (res, err) in
             if let err = err {
                 print("Failed to fetch events:", err)
                 return
@@ -103,31 +88,30 @@ class SearchEventsViewController: UICollectionViewController, UICollectionViewDe
         fatalError("init(coder:) has not been implemented")
     }
     
-    
 }
 
-#if DEBUG
-
-import SwiftUI
-struct EventsView: UIViewControllerRepresentable {
-    func makeUIViewController(context: UIViewControllerRepresentableContext<EventsView>) -> UIViewController {
-        let controller = SearchEventsViewController()
-        return UINavigationController(rootViewController: controller)
-    }
-    
-    func updateUIViewController(_ uiViewController: UIViewController, context: UIViewControllerRepresentableContext<EventsView>) {
-        
-    }
-    
-    typealias UIViewControllerType = UIViewController
-}
-
-struct EventsCompositionalView_Previews: PreviewProvider {
-    static var previews: some View {
-        EventsView()
-            .edgesIgnoringSafeArea(.all)
-            .colorScheme(.dark)
-    }
-}
-
-#endif
+//#if DEBUG
+//
+//import SwiftUI
+//struct EventsView: UIViewControllerRepresentable {
+//    func makeUIViewController(context: UIViewControllerRepresentableContext<EventsView>) -> UIViewController {
+//        let controller = SearchEventsViewController()
+//        return UINavigationController(rootViewController: controller)
+//    }
+//    
+//    func updateUIViewController(_ uiViewController: UIViewController, context: UIViewControllerRepresentableContext<EventsView>) {
+//        
+//    }
+//    
+//    typealias UIViewControllerType = UIViewController
+//}
+//
+//struct EventsCompositionalView_Previews: PreviewProvider {
+//    static var previews: some View {
+//        EventsView()
+//            .edgesIgnoringSafeArea(.all)
+//            .colorScheme(.dark)
+//    }
+//}
+//
+//#endif

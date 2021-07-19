@@ -10,13 +10,17 @@ import Foundation
 class SeatGeekAPI {
     static let shared = SeatGeekAPI()
     
-    func fetchEvents(searchTerm: String, completion: @escaping (SearchResult?, Error?) -> ()) {
-        let urlString = "https://api.seatgeek.com/2/events?client_id=MjI1NDg5OTN8MTYyNjQ1MDgyMi4yMzI1NDQ&q=\(searchTerm)"
-        fetchGenericJSONData(urlString: urlString, completion: completion)
+    func fetchEvents(searchTerm: String?, completion: @escaping (SearchResult?, Error?) -> ()) {
+        guard var url = URL(string: API.eventsUrl) else { return }
+        url.appendQueryItem(name: "client_id", value: API.clientId)
+        url.appendQueryItem(name: "client_secret", value: API.clientSecret)
+        if let searchText = searchTerm {
+            url.appendQueryItem(name: "q", value: searchText)
+        }
+        fetchGenericJSONData(url: url, completion: completion)
     }
     
-    func fetchGenericJSONData<T: Decodable>(urlString: String, completion: @escaping (T?, Error?) -> ()) {
-        guard let url = URL(string: urlString) else { return }
+    func fetchGenericJSONData<T: Decodable>(url: URL, completion: @escaping (T?, Error?) -> ()) {
         URLSession.shared.dataTask(with: url) { (data, resp, err) in
             if let err = err {
                 completion(nil, err)
@@ -31,4 +35,10 @@ class SeatGeekAPI {
             }
             }.resume()
     }
+}
+
+struct API {
+    static let eventsUrl = "https://api.seatgeek.com/2/events"
+    static let clientId = "MjE1MjAzODB8MTYxMTg4NDExNy4wODYxNDM"
+    static let clientSecret = "97eeb2b4f8ad2d01876e0e4609cef92c8000623e4e9efaa74ca0726b4b0c3dd6"
 }

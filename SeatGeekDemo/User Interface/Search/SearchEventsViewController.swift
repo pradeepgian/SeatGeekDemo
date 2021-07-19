@@ -11,23 +11,19 @@ class SearchEventsViewController: UICollectionViewController, UICollectionViewDe
     
     private let searchController = UISearchController(searchResultsController: nil)
     
-    let activityIndicatorView: UIActivityIndicatorView = {
-        let aiv = UIActivityIndicatorView(style: .large)
-        aiv.color = .black
-        aiv.startAnimating()
-        aiv.hidesWhenStopped = true
-        return aiv
-    }()
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         collectionView.backgroundColor = .white
         collectionView.register(EventCell.self, forCellWithReuseIdentifier: EventCell.cellIdentifier)
+        collectionView.register(EventsLoadingFooter.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionFooter, withReuseIdentifier: EventsLoadingFooter.cellIdentifier)
         collectionView?.contentInset = UIEdgeInsets(top: 16, left: 0, bottom: 0, right: 0)
-        view.addSubview(activityIndicatorView)
-        activityIndicatorView.fillSuperview()
         setupSearchBar()
-        fetchEvents()
+        fetchEvents() { result in
+            self.events = result
+            DispatchQueue.main.async {
+                self.collectionView.reloadData()
+            }
+        }
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -49,23 +45,33 @@ class SearchEventsViewController: UICollectionViewController, UICollectionViewDe
         // throttling the search
         timer?.invalidate()
         timer = Timer.scheduledTimer(withTimeInterval: 0.5, repeats: false, block: { (_) in
-            self.fetchEvents(searchText)
+            self.fetchEvents(searchText, page: 1) { (result) in
+                self.events = result
+                DispatchQueue.main.async {
+                    self.collectionView.reloadData()
+                    self.collectionView?.scrollToItem(at: IndexPath(row: 0, section: 0),
+                                                      at: .top,
+                                                      animated: false)
+                }
+            }
         })
     }
     
     private var events = [Event]()
     
-    private func fetchEvents(_ searchText: String? = nil) {
-        SeatGeekAPI.shared.fetchEvents(searchTerm: searchText) { (res, err) in
+    var pageNumber: Int {
+        let fractionNumOfPages = Double(self.events.count) / Double(API.eventsPerPage)
+        return Int(ceil(fractionNumOfPages)) + 1
+    }
+    
+    private func fetchEvents(_ searchText: String? = nil, page: Int? = nil, completion: @escaping ([Event]) -> ()) {
+        SeatGeekAPI.shared.fetchEvents(searchTerm: searchText, pageNumber: page ?? pageNumber) { (res, err) in
             if let err = err {
                 print("Failed to fetch events:", err)
                 return
             }
-            self.events = res?.events ?? []
-            DispatchQueue.main.async {
-                self.activityIndicatorView.stopAnimating()
-                self.collectionView.reloadData()
-            }
+            let events = res?.events ?? []
+            completion(events)
         }
     }
     
@@ -74,13 +80,44 @@ class SearchEventsViewController: UICollectionViewController, UICollectionViewDe
         return .init(width: width, height: 110)
     }
     
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForFooterInSection section: Int) -> CGSize {
+        let height: CGFloat = isDonePaginating ? 0 : 100
+        return .init(width: view.frame.width, height: height)
+    }
+    
+    override func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
+        let footer = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: EventsLoadingFooter.cellIdentifier, for: indexPath)
+        return footer
+    }
+    
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return events.count
     }
     
+    var isPaginating = false
+    var isDonePaginating = false
+    
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: EventCell.cellIdentifier, for: indexPath) as! EventCell
         cell.event = events[indexPath.item]
+        
+        // initiate pagination
+        if indexPath.item == events.count - 1 && !isPaginating {
+            print("fetch more events")
+            isPaginating = true
+            self.fetchEvents() { (events) in
+                if events.count == 0 {
+                    self.isDonePaginating = true
+                }
+                usleep(useconds_t(200))
+                self.events += events
+                DispatchQueue.main.async {
+                    self.collectionView.reloadData()
+                }
+                self.isPaginating = false
+            }
+        }
+        
         return cell
     }
     
@@ -98,29 +135,3 @@ class SearchEventsViewController: UICollectionViewController, UICollectionViewDe
     }
     
 }
-
-//#if DEBUG
-//
-//import SwiftUI
-//struct EventsView: UIViewControllerRepresentable {
-//    func makeUIViewController(context: UIViewControllerRepresentableContext<EventsView>) -> UIViewController {
-//        let controller = SearchEventsViewController()
-//        return UINavigationController(rootViewController: controller)
-//    }
-//    
-//    func updateUIViewController(_ uiViewController: UIViewController, context: UIViewControllerRepresentableContext<EventsView>) {
-//        
-//    }
-//    
-//    typealias UIViewControllerType = UIViewController
-//}
-//
-//struct EventsCompositionalView_Previews: PreviewProvider {
-//    static var previews: some View {
-//        EventsView()
-//            .edgesIgnoringSafeArea(.all)
-//            .colorScheme(.dark)
-//    }
-//}
-//
-//#endif

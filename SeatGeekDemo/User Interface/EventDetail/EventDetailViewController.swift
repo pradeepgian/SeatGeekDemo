@@ -23,9 +23,9 @@ class EventDetailViewController: UIViewController {
             locationLabel.text = "\(city), \(state)"
         }
     }
-    private let eventNameLabel = UILabel(text: "Event Name", font: .boldSystemFont(ofSize: 20), textColor: .black, numberOfLines: 0, alignment: .left)
-    private let timestampLabel = UILabel(text: "Time Stamp", font: .boldSystemFont(ofSize: 20), textColor: .black, numberOfLines: 1, alignment: .left)
-    private let locationLabel = UILabel(text: "Location", font: .systemFont(ofSize: 13), textColor: .black, numberOfLines: 1, alignment: .left)
+    private let eventNameLabel = UILabel(font: .boldSystemFont(ofSize: 20), textColor: .black, numberOfLines: 0, alignment: .left)
+    private let timestampLabel = UILabel(font: .boldSystemFont(ofSize: 20), textColor: .black, numberOfLines: 1, alignment: .left)
+    private let locationLabel = UILabel(font: .systemFont(ofSize: 13), textColor: .black, numberOfLines: 1, alignment: .left)
     
     lazy private var likeButton: UIButton = {
         let button = UIButton(type: .custom)
@@ -89,28 +89,3 @@ class EventDetailViewController: UIViewController {
     
 }
 
-//#if DEBUG
-//
-//import SwiftUI
-//struct EventDetailsView: UIViewControllerRepresentable {
-//    func makeUIViewController(context: UIViewControllerRepresentableContext<EventDetailsView>) -> UIViewController {
-//        let controller = EventDetailViewController()
-//        return UINavigationController(rootViewController: controller)
-//    }
-//    
-//    func updateUIViewController(_ uiViewController: UIViewController, context: UIViewControllerRepresentableContext<EventDetailsView>) {
-//        
-//    }
-//    
-//    typealias UIViewControllerType = UIViewController
-//}
-//
-//struct EventDetailsCompositionalView_Previews: PreviewProvider {
-//    static var previews: some View {
-//        EventDetailsView()
-//            .edgesIgnoringSafeArea(.all)
-//            .colorScheme(.dark)
-//    }
-//}
-//
-//#endif

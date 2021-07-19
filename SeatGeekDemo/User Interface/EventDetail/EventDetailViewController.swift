@@ -23,6 +23,7 @@ class EventDetailViewController: UIViewController {
             locationLabel.text = "\(city), \(state)"
         }
     }
+    
     private let eventNameLabel = UILabel(font: .boldSystemFont(ofSize: 20), textColor: .black, numberOfLines: 0, alignment: .left)
     private let timestampLabel = UILabel(font: .boldSystemFont(ofSize: 20), textColor: .black, numberOfLines: 1, alignment: .left)
     private let locationLabel = UILabel(font: .systemFont(ofSize: 13), textColor: .black, numberOfLines: 1, alignment: .left)

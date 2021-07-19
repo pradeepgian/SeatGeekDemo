@@ -10,6 +10,8 @@ import SDWebImage
 
 class EventCell: UICollectionViewCell {
     
+    static let cellIdentifier = "EventCell_Identifier"
+    
     var event: Event! {
         didSet {
             eventImageView.sd_setImage(with: URL(string: event.performers[0].image ?? ""))
@@ -24,7 +26,6 @@ class EventCell: UICollectionViewCell {
         }
     }
     
-    static let cellIdentifier = "EventCell_Identifier"
     private let eventImageView = UIImageView(cornerRadius: 8)
     private let eventNameLabel = UILabel(text: "Event Name", font: .boldSystemFont(ofSize: 16), textColor: .black, numberOfLines: 2, alignment: .left)
     private let locationLabel = UILabel(text: "Location", font: .systemFont(ofSize: 13), textColor: .black, numberOfLines: 1, alignment: .left)

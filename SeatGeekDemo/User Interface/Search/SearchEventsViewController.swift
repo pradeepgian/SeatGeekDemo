@@ -11,11 +11,21 @@ class SearchEventsViewController: UICollectionViewController, UICollectionViewDe
     
     private let searchController = UISearchController(searchResultsController: nil)
     
+    let activityIndicatorView: UIActivityIndicatorView = {
+        let aiv = UIActivityIndicatorView(style: .large)
+        aiv.color = .black
+        aiv.startAnimating()
+        aiv.hidesWhenStopped = true
+        return aiv
+    }()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         collectionView.backgroundColor = .white
         collectionView.register(EventCell.self, forCellWithReuseIdentifier: EventCell.cellIdentifier)
         collectionView?.contentInset = UIEdgeInsets(top: 16, left: 0, bottom: 0, right: 0)
+        view.addSubview(activityIndicatorView)
+        activityIndicatorView.fillSuperview()
         setupSearchBar()
         fetchEvents()
     }
@@ -35,8 +45,6 @@ class SearchEventsViewController: UICollectionViewController, UICollectionViewDe
     private var timer: Timer?
     
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
-        print(searchText)
-        
         // introduce some delay before performing the search
         // throttling the search
         timer?.invalidate()
@@ -55,6 +63,7 @@ class SearchEventsViewController: UICollectionViewController, UICollectionViewDe
             }
             self.events = res?.events ?? []
             DispatchQueue.main.async {
+                self.activityIndicatorView.stopAnimating()
                 self.collectionView.reloadData()
             }
         }

@@ -9,18 +9,14 @@ import UIKit
 
 class EventDetailViewController: UIViewController {
     
-    private var event: Event! {
+    private var eventViewModel: EventViewModel! {
         didSet {
-            eventImageView.sd_setImage(with: URL(string: event.performers[0].image ?? ""))
-            eventNameLabel.text = event.title
-            let datetime_utc = event.datetime_utc.getDate(timezone: TimeZone.utc)
-            let timeStampStr = datetime_utc?.toString(timezone: TimeZone.current)
-            timestampLabel.text = timeStampStr
-            let image = self.event.isFavorite ? #imageLiteral(resourceName: "like_selected") : #imageLiteral(resourceName: "like_unselected")
+            eventImageView.sd_setImage(with: eventViewModel.eventImageUrl)
+            eventNameLabel.text = eventViewModel.eventTitle
+            timestampLabel.text = eventViewModel.timestamp
+            let image =  eventViewModel.isFavorite ? #imageLiteral(resourceName: "like_selected") : #imageLiteral(resourceName: "like_unselected")
             likeButton.setImage(image, for: .normal)
-            guard let city = event.venue.city,
-                  let state = event.venue.state else { return }
-            locationLabel.text = "\(city), \(state)"
+            locationLabel.text = eventViewModel.eventVenue
         }
     }
     
@@ -28,7 +24,7 @@ class EventDetailViewController: UIViewController {
     private let timestampLabel = UILabel(font: .boldSystemFont(ofSize: 20), textColor: .black, numberOfLines: 1, alignment: .left)
     private let locationLabel = UILabel(font: .systemFont(ofSize: 13), textColor: .black, numberOfLines: 1, alignment: .left)
     
-    lazy private var likeButton: UIButton = {
+    lazy private var likeButton: UIButton = { [unowned self] in
         let button = UIButton(type: .custom)
         button.constrainWidth(constant: 25)
         button.constrainHeight(constant: 25)
@@ -53,11 +49,11 @@ class EventDetailViewController: UIViewController {
     
     init(event: Event) {
         super.init(nibName: nil, bundle: nil)
-        setEvent(event)
+        setEventViewModel(event)
     }
     
-    private func setEvent(_ event: Event) {
-        self.event = event
+    private func setEventViewModel(_ event: Event) {
+        self.eventViewModel = EventViewModel(event: event)
     }
     
     required init?(coder: NSCoder) {
@@ -65,11 +61,11 @@ class EventDetailViewController: UIViewController {
     }
     
     @objc func handleLike() {
-        if self.event.isFavorite {
-            UserDefaults.standard.unfavoriteEvent(event.id)
+        if self.eventViewModel.isFavorite {
+            UserDefaults.standard.unfavoriteEvent(eventViewModel.eventId)
             likeButton.setImage(#imageLiteral(resourceName: "like_unselected"), for: .normal)
         } else {
-            UserDefaults.standard.favoriteEvent(event.id)
+            UserDefaults.standard.favoriteEvent(eventViewModel.eventId)
             likeButton.setImage(#imageLiteral(resourceName: "like_selected"), for: .normal)
         }
     }

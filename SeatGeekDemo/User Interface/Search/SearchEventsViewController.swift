@@ -44,7 +44,7 @@ class SearchEventsViewController: UICollectionViewController, UICollectionViewDe
         // introduce some delay before performing the search
         // throttling the search
         timer?.invalidate()
-        timer = Timer.scheduledTimer(withTimeInterval: 0.5, repeats: false, block: { (_) in
+        timer = Timer.scheduledTimer(withTimeInterval: 0.25, repeats: false, block: { [unowned self] _ in
             self.fetchEvents(searchText, page: 1) { (result) in
                 self.events = result
                 DispatchQueue.main.async {
@@ -60,12 +60,12 @@ class SearchEventsViewController: UICollectionViewController, UICollectionViewDe
     private var events = [Event]()
     
     var pageNumber: Int {
-        let fractionNumOfPages = Double(self.events.count) / Double(API.eventsPerPage)
+        let fractionNumOfPages = Double(self.events.count) / Double(SeatGeekAPI.eventsPerPage)
         return Int(ceil(fractionNumOfPages)) + 1
     }
     
     private func fetchEvents(_ searchText: String? = nil, page: Int? = nil, completion: @escaping ([Event]) -> ()) {
-        SeatGeekAPI.shared.fetchEvents(searchTerm: searchText, pageNumber: page ?? pageNumber) { (res, err) in
+        SeatGeekAPI.fetchEvents(searchTerm: searchText, pageNumber: page ?? pageNumber) { (res, err) in
             if let err = err {
                 print("Failed to fetch events:", err)
                 return
@@ -99,7 +99,7 @@ class SearchEventsViewController: UICollectionViewController, UICollectionViewDe
     
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: EventCell.cellIdentifier, for: indexPath) as! EventCell
-        cell.event = events[indexPath.item]
+        cell.eventViewModel = EventViewModel(event: events[indexPath.item])
         
         // initiate pagination
         if indexPath.item == events.count - 1 && !isPaginating {
@@ -109,7 +109,6 @@ class SearchEventsViewController: UICollectionViewController, UICollectionViewDe
                 if events.count == 0 {
                     self.isDonePaginating = true
                 }
-                usleep(useconds_t(200))
                 self.events += events
                 DispatchQueue.main.async {
                     self.collectionView.reloadData()

@@ -12,17 +12,13 @@ class EventCell: UICollectionViewCell {
     
     static let cellIdentifier = "EventCell_Identifier"
     
-    var event: Event! {
+    var eventViewModel: EventViewModel! {
         didSet {
-            eventImageView.sd_setImage(with: URL(string: event.performers[0].image ?? ""))
-            eventNameLabel.text = event.title
-            let datetime_utc = event.datetime_utc.getDate(timezone: TimeZone.utc)
-            let timeStampStr = datetime_utc?.toString(timezone: TimeZone.current)
-            timestampLabel.text = timeStampStr
-            favoriteBadgeImageView.isHidden =  event.isFavorite ? false : true
-            guard let city = event.venue.city,
-                  let state = event.venue.state else { return }
-            locationLabel.text = "\(city), \(state)"
+            eventImageView.sd_setImage(with: eventViewModel.eventImageUrl)
+            eventNameLabel.text = eventViewModel.eventTitle
+            timestampLabel.text = eventViewModel.timestamp
+            favoriteBadgeImageView.isHidden =  eventViewModel.isFavorite ? false : true
+            locationLabel.text = eventViewModel.eventVenue
         }
     }
     

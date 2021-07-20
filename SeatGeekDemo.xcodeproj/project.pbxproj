@@ -27,6 +27,7 @@
 		80DB6A2B26A3562E0037E401 /* SDWebImage in Frameworks */ = {isa = PBXBuildFile; productRef = 80DB6A2A26A3562E0037E401 /* SDWebImage */; };
 		80DB6A2D26A56B090037E401 /* URL+QueryParams.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80DB6A2C26A56B080037E401 /* URL+QueryParams.swift */; };
 		80DB6A2F26A5AABB0037E401 /* EventsLoadingFooter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80DB6A2E26A5AABB0037E401 /* EventsLoadingFooter.swift */; };
+		80DB6A3226A6BD340037E401 /* EventViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80DB6A3126A6BD340037E401 /* EventViewModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -51,6 +52,7 @@
 		80DB6A2726A2FE210037E401 /* UserDefaultsExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaultsExtension.swift; sourceTree = "<group>"; };
 		80DB6A2C26A56B080037E401 /* URL+QueryParams.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "URL+QueryParams.swift"; sourceTree = "<group>"; };
 		80DB6A2E26A5AABB0037E401 /* EventsLoadingFooter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventsLoadingFooter.swift; sourceTree = "<group>"; };
+		80DB6A3126A6BD340037E401 /* EventViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventViewModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -86,6 +88,7 @@
 			children = (
 				80DB6A0A26A1FDAF0037E401 /* User Interface */,
 				80DB6A0C26A1FDBC0037E401 /* Model */,
+				80DB6A3026A6BD1E0037E401 /* ViewModel */,
 				80DB6A0D26A1FDC10037E401 /* API */,
 				80DB6A0E26A1FDCD0037E401 /* Extensions */,
 				80DB69F626A1FD6D0037E401 /* AppDelegate.swift */,
@@ -154,6 +157,14 @@
 				80DB6A2526A2EDEF0037E401 /* EventDetailViewController.swift */,
 			);
 			path = EventDetail;
+			sourceTree = "<group>";
+		};
+		80DB6A3026A6BD1E0037E401 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				80DB6A3126A6BD340037E401 /* EventViewModel.swift */,
+			);
+			path = ViewModel;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -235,6 +246,7 @@
 				80DB69F726A1FD6D0037E401 /* AppDelegate.swift in Sources */,
 				80DB6A1826A2A3400037E401 /* SearchResult.swift in Sources */,
 				80DB6A2626A2EDEF0037E401 /* EventDetailViewController.swift in Sources */,
+				80DB6A3226A6BD340037E401 /* EventViewModel.swift in Sources */,
 				80DB6A1F26A2A9D10037E401 /* UIImageView+Style.swift in Sources */,
 				80DB6A1626A1FFFE0037E401 /* SeatGeekAPI.swift in Sources */,
 				80DB6A2126A2B2D30037E401 /* CALayer+Shadow.swift in Sources */,

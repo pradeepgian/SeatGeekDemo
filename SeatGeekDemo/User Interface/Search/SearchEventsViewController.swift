@@ -58,14 +58,16 @@ class SearchEventsViewController: UICollectionViewController, UICollectionViewDe
     }
     
     private var events = [Event]()
+    private var maxEventsPerFetch = 20
     
     var pageNumber: Int {
-        let fractionNumOfPages = Double(self.events.count) / Double(SeatGeekAPI.eventsPerPage)
+        let fractionNumOfPages = Double(self.events.count) / Double(maxEventsPerFetch)
         return Int(ceil(fractionNumOfPages)) + 1
     }
     
-    private func fetchEvents(_ searchText: String? = nil, page: Int? = nil, completion: @escaping ([Event]) -> ()) {
-        SeatGeekAPI.fetchEvents(searchTerm: searchText, pageNumber: page ?? pageNumber) { (res, err) in
+    private func fetchEvents(_ searchText: String = "", page: Int? = nil, completion: @escaping ([Event]) -> ()) {
+        let endpoint = SeatGeekAPI.fetchEvents(searchTerm: searchText, page: page ?? pageNumber, maxResultCount: maxEventsPerFetch)
+        SeatGeekAPIManager.urlRequest(endPoint: endpoint) { (res: SearchResult?, err) in
             if let err = err {
                 print("Failed to fetch events:", err)
                 return

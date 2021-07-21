@@ -25,9 +25,12 @@
 		80DB6A2626A2EDEF0037E401 /* EventDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80DB6A2526A2EDEF0037E401 /* EventDetailViewController.swift */; };
 		80DB6A2826A2FE210037E401 /* UserDefaultsExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80DB6A2726A2FE210037E401 /* UserDefaultsExtension.swift */; };
 		80DB6A2B26A3562E0037E401 /* SDWebImage in Frameworks */ = {isa = PBXBuildFile; productRef = 80DB6A2A26A3562E0037E401 /* SDWebImage */; };
-		80DB6A2D26A56B090037E401 /* URL+QueryParams.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80DB6A2C26A56B080037E401 /* URL+QueryParams.swift */; };
+		80DB6A2D26A56B090037E401 /* URLComponents+QueryParams.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80DB6A2C26A56B080037E401 /* URLComponents+QueryParams.swift */; };
 		80DB6A2F26A5AABB0037E401 /* EventsLoadingFooter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80DB6A2E26A5AABB0037E401 /* EventsLoadingFooter.swift */; };
 		80DB6A3226A6BD340037E401 /* EventViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80DB6A3126A6BD340037E401 /* EventViewModel.swift */; };
+		80DB6A3426A8219D0037E401 /* EndPoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80DB6A3326A8219D0037E401 /* EndPoint.swift */; };
+		80DB6A3626A821B90037E401 /* HTTPMethod.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80DB6A3526A821B90037E401 /* HTTPMethod.swift */; };
+		80DB6A3826A84CE30037E401 /* SeatGeekAPIManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80DB6A3726A84CE30037E401 /* SeatGeekAPIManager.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -50,9 +53,12 @@
 		80DB6A2226A2CEB30037E401 /* Date+Helper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+Helper.swift"; sourceTree = "<group>"; };
 		80DB6A2526A2EDEF0037E401 /* EventDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventDetailViewController.swift; sourceTree = "<group>"; };
 		80DB6A2726A2FE210037E401 /* UserDefaultsExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaultsExtension.swift; sourceTree = "<group>"; };
-		80DB6A2C26A56B080037E401 /* URL+QueryParams.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "URL+QueryParams.swift"; sourceTree = "<group>"; };
+		80DB6A2C26A56B080037E401 /* URLComponents+QueryParams.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "URLComponents+QueryParams.swift"; sourceTree = "<group>"; };
 		80DB6A2E26A5AABB0037E401 /* EventsLoadingFooter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventsLoadingFooter.swift; sourceTree = "<group>"; };
 		80DB6A3126A6BD340037E401 /* EventViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventViewModel.swift; sourceTree = "<group>"; };
+		80DB6A3326A8219D0037E401 /* EndPoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EndPoint.swift; sourceTree = "<group>"; };
+		80DB6A3526A821B90037E401 /* HTTPMethod.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTTPMethod.swift; sourceTree = "<group>"; };
+		80DB6A3726A84CE30037E401 /* SeatGeekAPIManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SeatGeekAPIManager.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -122,6 +128,9 @@
 			isa = PBXGroup;
 			children = (
 				80DB6A1526A1FFFE0037E401 /* SeatGeekAPI.swift */,
+				80DB6A3326A8219D0037E401 /* EndPoint.swift */,
+				80DB6A3526A821B90037E401 /* HTTPMethod.swift */,
+				80DB6A3726A84CE30037E401 /* SeatGeekAPIManager.swift */,
 			);
 			path = API;
 			sourceTree = "<group>";
@@ -136,7 +145,7 @@
 				80DB6A2026A2B2D30037E401 /* CALayer+Shadow.swift */,
 				80DB6A2226A2CEB30037E401 /* Date+Helper.swift */,
 				80DB6A2726A2FE210037E401 /* UserDefaultsExtension.swift */,
-				80DB6A2C26A56B080037E401 /* URL+QueryParams.swift */,
+				80DB6A2C26A56B080037E401 /* URLComponents+QueryParams.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -243,8 +252,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				80DB6A3626A821B90037E401 /* HTTPMethod.swift in Sources */,
 				80DB69F726A1FD6D0037E401 /* AppDelegate.swift in Sources */,
 				80DB6A1826A2A3400037E401 /* SearchResult.swift in Sources */,
+				80DB6A3426A8219D0037E401 /* EndPoint.swift in Sources */,
 				80DB6A2626A2EDEF0037E401 /* EventDetailViewController.swift in Sources */,
 				80DB6A3226A6BD340037E401 /* EventViewModel.swift in Sources */,
 				80DB6A1F26A2A9D10037E401 /* UIImageView+Style.swift in Sources */,
@@ -258,7 +269,8 @@
 				80DB69F926A1FD6D0037E401 /* SceneDelegate.swift in Sources */,
 				80DB6A1226A1FF160037E401 /* StackViewExtension.swift in Sources */,
 				80DB6A2826A2FE210037E401 /* UserDefaultsExtension.swift in Sources */,
-				80DB6A2D26A56B090037E401 /* URL+QueryParams.swift in Sources */,
+				80DB6A3826A84CE30037E401 /* SeatGeekAPIManager.swift in Sources */,
+				80DB6A2D26A56B090037E401 /* URLComponents+QueryParams.swift in Sources */,
 				80DB6A2326A2CEB30037E401 /* Date+Helper.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

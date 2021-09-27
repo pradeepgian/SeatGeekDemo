@@ -11,3 +11,6 @@
 
 ### Pagination Data Fetch
 ![](https://github.com/pradeepgian/SeatGeekDemo/blob/main/PaginationDataFetch.gif)
+
+## License
+Distributed under the MIT License. See `LICENSE.txt` for more information.

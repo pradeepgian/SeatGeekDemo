@@ -10,7 +10,8 @@ import UIKit
 class SearchEventsViewController: UICollectionViewController, UICollectionViewDelegateFlowLayout, UISearchBarDelegate {
     
     private let searchController = UISearchController(searchResultsController: nil)
-    
+    private let eventsVM = EventsViewModel()
+
     override func viewDidLoad() {
         super.viewDidLoad()
         collectionView.backgroundColor = .white
@@ -18,16 +19,37 @@ class SearchEventsViewController: UICollectionViewController, UICollectionViewDe
         collectionView.register(EventsLoadingFooter.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionFooter, withReuseIdentifier: EventsLoadingFooter.cellIdentifier)
         collectionView?.contentInset = UIEdgeInsets(top: 16, left: 0, bottom: 0, right: 0)
         setupSearchBar()
-        fetchEvents() { result in
-            self.events = result
-            DispatchQueue.main.async {
-                self.collectionView.reloadData()
-            }
-        }
+        eventsViewModelObserver()
+        eventsVM.fetchEventsFromService()
     }
     
     override func viewWillAppear(_ animated: Bool) {
         collectionView.reloadData()
+    }
+    
+    private func eventsViewModelObserver() {
+        eventsVM.screenState.valueChanged = { [weak self] screenState in
+            DispatchQueue.main.async {
+                guard let self = self else { return }
+                switch screenState {
+                    case .fetchEventsDataLoadingComplete:
+                        self.collectionView.reloadData()
+                        break
+                    case let .fetchMembersDataloadingError(error):
+                        print("Something went wrong \(String(describing: error))")
+                        let errorMessage = error?.localizedDescription
+                        print(errorMessage ?? "")
+                        break
+                    case .searchEventDataLoadingComplete:
+                        self.collectionView?.scrollToItem(at: IndexPath(row: 0, section: 0),
+                                                          at: .top,
+                                                          animated: false)
+                        break
+                    default:
+                        break
+                }
+            }
+        }
     }
     
     private func setupSearchBar() {
@@ -41,40 +63,12 @@ class SearchEventsViewController: UICollectionViewController, UICollectionViewDe
     private var timer: Timer?
     
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
-        // introduce some delay before performing the search
-        // throttling the search
-        timer?.invalidate()
-        timer = Timer.scheduledTimer(withTimeInterval: 0.25, repeats: false, block: { [unowned self] _ in
-            self.fetchEvents(searchText, page: 1) { (result) in
-                self.events = result
-                DispatchQueue.main.async {
-                    self.collectionView.reloadData()
-                    self.collectionView?.scrollToItem(at: IndexPath(row: 0, section: 0),
-                                                      at: .top,
-                                                      animated: false)
-                }
-            }
+            // introduce some delay before performing the search
+            // throttling the search
+            timer?.invalidate()
+            timer = Timer.scheduledTimer(withTimeInterval: 0.25, repeats: false, block: { [unowned self] _ in
+            eventsVM.searchLabelText = searchText
         })
-    }
-    
-    private var events = [Event]()
-    private var maxEventsPerFetch = 20
-    
-    var pageNumber: Int {
-        let fractionNumOfPages = Double(self.events.count) / Double(maxEventsPerFetch)
-        return Int(ceil(fractionNumOfPages)) + 1
-    }
-    
-    private func fetchEvents(_ searchText: String = "", page: Int? = nil, completion: @escaping ([Event]) -> ()) {
-        let endpoint = SeatGeekAPI.fetchEvents(searchTerm: searchText, page: page ?? pageNumber, maxResultCount: maxEventsPerFetch)
-        SeatGeekAPIManager.urlRequest(endPoint: endpoint) { (res: SearchResult?, err) in
-            if let err = err {
-                print("Failed to fetch events:", err)
-                return
-            }
-            let events = res?.events ?? []
-            completion(events)
-        }
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
@@ -83,7 +77,7 @@ class SearchEventsViewController: UICollectionViewController, UICollectionViewDe
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForFooterInSection section: Int) -> CGSize {
-        let height: CGFloat = isDonePaginating ? 0 : 100
+        let height: CGFloat = eventsVM.isDonePaginating ? 0 : 100
         return .init(width: view.frame.width, height: height)
     }
     
@@ -93,37 +87,22 @@ class SearchEventsViewController: UICollectionViewController, UICollectionViewDe
     }
     
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return events.count
+        return eventsVM.events.count
     }
-    
-    var isPaginating = false
-    var isDonePaginating = false
     
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: EventCell.cellIdentifier, for: indexPath) as! EventCell
-        cell.eventViewModel = EventViewModel(event: events[indexPath.item])
-        
-        // initiate pagination
-        if indexPath.item == events.count - 1 && !isPaginating {
+        cell.eventViewModel = EventCellViewModel(event: eventsVM.events[indexPath.item])
+        if indexPath.item == eventsVM.events.count - 1 && !eventsVM.isPaginating {
             print("fetch more events")
-            isPaginating = true
-            self.fetchEvents() { (events) in
-                if events.count == 0 {
-                    self.isDonePaginating = true
-                }
-                self.events += events
-                DispatchQueue.main.async {
-                    self.collectionView.reloadData()
-                }
-                self.isPaginating = false
-            }
+            eventsVM.initiatePagination()
         }
         
         return cell
     }
     
     override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        let eventDetailController = EventDetailViewController(event: events[indexPath.row])
+        let eventDetailController = EventDetailViewController(event: eventsVM.events[indexPath.row])
         navigationController?.pushViewController(eventDetailController, animated: true)
     }
     

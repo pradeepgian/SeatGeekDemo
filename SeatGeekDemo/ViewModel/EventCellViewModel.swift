@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct EventViewModel {
+struct EventCellViewModel {
     
     private let event: Event
     

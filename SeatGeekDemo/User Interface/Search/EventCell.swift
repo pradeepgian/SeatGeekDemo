@@ -12,7 +12,7 @@ class EventCell: UICollectionViewCell {
     
     static let cellIdentifier = "EventCell_Identifier"
     
-    var eventViewModel: EventViewModel! {
+    var eventViewModel: EventCellViewModel! {
         didSet {
             eventImageView.sd_setImage(with: eventViewModel.eventImageUrl)
             eventNameLabel.text = eventViewModel.eventTitle

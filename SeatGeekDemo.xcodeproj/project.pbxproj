@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		102946A2281FE907005F3EEB /* Bindable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 102946A1281FE907005F3EEB /* Bindable.swift */; };
+		102946A42820010D005F3EEB /* EventsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 102946A32820010D005F3EEB /* EventsViewModel.swift */; };
 		80DB69F726A1FD6D0037E401 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80DB69F626A1FD6D0037E401 /* AppDelegate.swift */; };
 		80DB69F926A1FD6D0037E401 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80DB69F826A1FD6D0037E401 /* SceneDelegate.swift */; };
 		80DB69FE26A1FD6D0037E401 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 80DB69FC26A1FD6D0037E401 /* Main.storyboard */; };
@@ -27,13 +29,15 @@
 		80DB6A2B26A3562E0037E401 /* SDWebImage in Frameworks */ = {isa = PBXBuildFile; productRef = 80DB6A2A26A3562E0037E401 /* SDWebImage */; };
 		80DB6A2D26A56B090037E401 /* URLComponents+QueryParams.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80DB6A2C26A56B080037E401 /* URLComponents+QueryParams.swift */; };
 		80DB6A2F26A5AABB0037E401 /* EventsLoadingFooter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80DB6A2E26A5AABB0037E401 /* EventsLoadingFooter.swift */; };
-		80DB6A3226A6BD340037E401 /* EventViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80DB6A3126A6BD340037E401 /* EventViewModel.swift */; };
+		80DB6A3226A6BD340037E401 /* EventCellViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80DB6A3126A6BD340037E401 /* EventCellViewModel.swift */; };
 		80DB6A3426A8219D0037E401 /* EndPoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80DB6A3326A8219D0037E401 /* EndPoint.swift */; };
 		80DB6A3626A821B90037E401 /* HTTPMethod.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80DB6A3526A821B90037E401 /* HTTPMethod.swift */; };
 		80DB6A3826A84CE30037E401 /* SeatGeekAPIManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80DB6A3726A84CE30037E401 /* SeatGeekAPIManager.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		102946A1281FE907005F3EEB /* Bindable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Bindable.swift; sourceTree = "<group>"; };
+		102946A32820010D005F3EEB /* EventsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventsViewModel.swift; sourceTree = "<group>"; };
 		80DB69F326A1FD6D0037E401 /* SeatGeekDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SeatGeekDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		80DB69F626A1FD6D0037E401 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		80DB69F826A1FD6D0037E401 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -55,7 +59,7 @@
 		80DB6A2726A2FE210037E401 /* UserDefaultsExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaultsExtension.swift; sourceTree = "<group>"; };
 		80DB6A2C26A56B080037E401 /* URLComponents+QueryParams.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "URLComponents+QueryParams.swift"; sourceTree = "<group>"; };
 		80DB6A2E26A5AABB0037E401 /* EventsLoadingFooter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventsLoadingFooter.swift; sourceTree = "<group>"; };
-		80DB6A3126A6BD340037E401 /* EventViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventViewModel.swift; sourceTree = "<group>"; };
+		80DB6A3126A6BD340037E401 /* EventCellViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventCellViewModel.swift; sourceTree = "<group>"; };
 		80DB6A3326A8219D0037E401 /* EndPoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EndPoint.swift; sourceTree = "<group>"; };
 		80DB6A3526A821B90037E401 /* HTTPMethod.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTTPMethod.swift; sourceTree = "<group>"; };
 		80DB6A3726A84CE30037E401 /* SeatGeekAPIManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SeatGeekAPIManager.swift; sourceTree = "<group>"; };
@@ -146,6 +150,7 @@
 				80DB6A2226A2CEB30037E401 /* Date+Helper.swift */,
 				80DB6A2726A2FE210037E401 /* UserDefaultsExtension.swift */,
 				80DB6A2C26A56B080037E401 /* URLComponents+QueryParams.swift */,
+				102946A1281FE907005F3EEB /* Bindable.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -171,7 +176,8 @@
 		80DB6A3026A6BD1E0037E401 /* ViewModel */ = {
 			isa = PBXGroup;
 			children = (
-				80DB6A3126A6BD340037E401 /* EventViewModel.swift */,
+				80DB6A3126A6BD340037E401 /* EventCellViewModel.swift */,
+				102946A32820010D005F3EEB /* EventsViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -255,11 +261,13 @@
 				80DB6A3626A821B90037E401 /* HTTPMethod.swift in Sources */,
 				80DB69F726A1FD6D0037E401 /* AppDelegate.swift in Sources */,
 				80DB6A1826A2A3400037E401 /* SearchResult.swift in Sources */,
+				102946A42820010D005F3EEB /* EventsViewModel.swift in Sources */,
 				80DB6A3426A8219D0037E401 /* EndPoint.swift in Sources */,
 				80DB6A2626A2EDEF0037E401 /* EventDetailViewController.swift in Sources */,
-				80DB6A3226A6BD340037E401 /* EventViewModel.swift in Sources */,
+				80DB6A3226A6BD340037E401 /* EventCellViewModel.swift in Sources */,
 				80DB6A1F26A2A9D10037E401 /* UIImageView+Style.swift in Sources */,
 				80DB6A1626A1FFFE0037E401 /* SeatGeekAPI.swift in Sources */,
+				102946A2281FE907005F3EEB /* Bindable.swift in Sources */,
 				80DB6A2126A2B2D30037E401 /* CALayer+Shadow.swift in Sources */,
 				80DB6A2F26A5AABB0037E401 /* EventsLoadingFooter.swift in Sources */,
 				80DB6A1D26A2A7A10037E401 /* EventCell.swift in Sources */,

@@ -10,7 +10,7 @@ import UIKit
 class SearchEventsViewController: UICollectionViewController, UICollectionViewDelegateFlowLayout, UISearchBarDelegate {
     
     private let searchController = UISearchController(searchResultsController: nil)
-    private let eventsVM = EventsViewModel()
+    private let eventsViewModel = EventsViewModel()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -20,7 +20,7 @@ class SearchEventsViewController: UICollectionViewController, UICollectionViewDe
         collectionView?.contentInset = UIEdgeInsets(top: 16, left: 0, bottom: 0, right: 0)
         setupSearchBar()
         eventsViewModelObserver()
-        eventsVM.fetchEventsFromService()
+        eventsViewModel.fetchEventsFromService()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -28,7 +28,7 @@ class SearchEventsViewController: UICollectionViewController, UICollectionViewDe
     }
     
     private func eventsViewModelObserver() {
-        eventsVM.screenState.valueChanged = { [weak self] screenState in
+        eventsViewModel.screenState.valueChanged = { [weak self] screenState in
             DispatchQueue.main.async {
                 guard let self = self else { return }
                 switch screenState {
@@ -67,7 +67,7 @@ class SearchEventsViewController: UICollectionViewController, UICollectionViewDe
             // throttling the search
             timer?.invalidate()
             timer = Timer.scheduledTimer(withTimeInterval: 0.25, repeats: false, block: { [unowned self] _ in
-            eventsVM.searchLabelText = searchText
+            eventsViewModel.searchLabelText = searchText
         })
     }
     
@@ -77,7 +77,7 @@ class SearchEventsViewController: UICollectionViewController, UICollectionViewDe
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForFooterInSection section: Int) -> CGSize {
-        let height: CGFloat = eventsVM.isDonePaginating ? 0 : 100
+        let height: CGFloat = eventsViewModel.isDonePaginating ? 0 : 100
         return .init(width: view.frame.width, height: height)
     }
     
@@ -87,22 +87,23 @@ class SearchEventsViewController: UICollectionViewController, UICollectionViewDe
     }
     
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return eventsVM.events.count
+        return eventsViewModel.events.count
     }
     
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: EventCell.cellIdentifier, for: indexPath) as! EventCell
-        cell.eventViewModel = EventCellViewModel(event: eventsVM.events[indexPath.item])
-        if indexPath.item == eventsVM.events.count - 1 && !eventsVM.isPaginating {
-            print("fetch more events")
-            eventsVM.initiatePagination()
+        if let eventViewModel = eventsViewModel.getCellViewModel(for: indexPath) {
+            cell.updateDataFromCellViewModel(eventViewModel)
         }
-        
+        if indexPath.item == eventsViewModel.events.count - 1 && !eventsViewModel.isPaginating {
+            print("fetch more events")
+            eventsViewModel.initiatePagination()
+        }
         return cell
     }
     
     override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        let eventDetailController = EventDetailViewController(event: eventsVM.events[indexPath.row])
+        let eventDetailController = EventDetailViewController(event: eventsViewModel.events[indexPath.row])
         navigationController?.pushViewController(eventDetailController, animated: true)
     }
     

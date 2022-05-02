@@ -7,15 +7,8 @@
 
 import Foundation
 
-enum ScreenState {
-    case idle
-    case fetchEventsDataLoading
-    case fetchEventsDataLoadingComplete
-    case fetchMembersDataloadingError(error: Error?)
-    case searchEventDataLoadingComplete
-}
 
-class EventsViewModel {
+class EventsViewModel: CollectionViewCellViewModelProvider {
     
     var screenState: Bindable<ScreenState> = Bindable(value: .idle)
     private var maxEventsPerFetch = 20
@@ -53,6 +46,11 @@ class EventsViewModel {
             self.screenState.value = .fetchEventsDataLoadingComplete
             completion?()
         }
+    }
+    
+    func getCellViewModel(for indexPath: IndexPath) -> CellViewModelProtocol? {
+        let eventViewModel = EventViewModel(event: events[indexPath.row])
+        return eventViewModel
     }
     
     func initiatePagination() {

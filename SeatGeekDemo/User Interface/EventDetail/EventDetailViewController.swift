@@ -9,7 +9,7 @@ import UIKit
 
 class EventDetailViewController: UIViewController {
     
-    private var eventViewModel: EventCellViewModel! {
+    private var eventViewModel: EventViewModel! {
         didSet {
             eventImageView.sd_setImage(with: eventViewModel.eventImageUrl)
             eventNameLabel.text = eventViewModel.eventTitle
@@ -53,7 +53,7 @@ class EventDetailViewController: UIViewController {
     }
     
     private func setEventViewModel(_ event: Event) {
-        self.eventViewModel = EventCellViewModel(event: event)
+        self.eventViewModel = EventViewModel(event: event)
     }
     
     required init?(coder: NSCoder) {

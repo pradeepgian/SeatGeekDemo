@@ -8,19 +8,9 @@
 import UIKit
 import SDWebImage
 
-class EventCell: UICollectionViewCell {
+class EventCell: UICollectionViewCell, ConfigureDataInCollectionViewCell {
     
     static let cellIdentifier = "EventCell_Identifier"
-    
-    var eventViewModel: EventCellViewModel! {
-        didSet {
-            eventImageView.sd_setImage(with: eventViewModel.eventImageUrl)
-            eventNameLabel.text = eventViewModel.eventTitle
-            timestampLabel.text = eventViewModel.timestamp
-            favoriteBadgeImageView.isHidden =  eventViewModel.isFavorite ? false : true
-            locationLabel.text = eventViewModel.eventVenue
-        }
-    }
     
     private let eventImageView = UIImageView(cornerRadius: 8)
     private let eventNameLabel = UILabel(text: "Event Name", font: .boldSystemFont(ofSize: 16), textColor: .black, numberOfLines: 2, alignment: .left)
@@ -68,4 +58,14 @@ class EventCell: UICollectionViewCell {
         self.backgroundView?.layer.shadowOffset = .init(width: 0, height: 3)
         self.backgroundView?.layer.shouldRasterize = true
     }
+    
+    func updateDataFromCellViewModel(_ viewModel: CellViewModelProtocol) {
+        let eventViewModel = viewModel as! EventViewModel
+        eventImageView.sd_setImage(with: eventViewModel.eventImageUrl)
+        eventNameLabel.text = eventViewModel.eventTitle
+        timestampLabel.text = eventViewModel.timestamp
+        favoriteBadgeImageView.isHidden =  eventViewModel.isFavorite ? false : true
+        locationLabel.text = eventViewModel.eventVenue
+    }
+    
 }

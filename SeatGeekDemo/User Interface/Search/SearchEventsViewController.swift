@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import Combine
 
 class SearchEventsViewController: UICollectionViewController, UICollectionViewDelegateFlowLayout, UISearchBarDelegate {
     
@@ -57,18 +58,17 @@ class SearchEventsViewController: UICollectionViewController, UICollectionViewDe
         navigationItem.searchController = self.searchController
         navigationItem.hidesSearchBarWhenScrolling = false
         searchController.obscuresBackgroundDuringPresentation = false
-        searchController.searchBar.delegate = self
+        setupSearchBarListener()
     }
     
-    private var timer: Timer?
+    var listener: AnyCancellable!
     
-    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
-            // introduce some delay before performing the search
-            // throttling the search
-            timer?.invalidate()
-            timer = Timer.scheduledTimer(withTimeInterval: 0.25, repeats: false, block: { [unowned self] _ in
-            eventsViewModel.searchLabelText = searchText
-        })
+    private func setupSearchBarListener() {
+        listener = NotificationCenter.default.publisher(for: UISearchTextField.textDidChangeNotification, object: searchController.searchBar.searchTextField).map {
+            ($0.object as! UISearchTextField).text
+        }.debounce(for: .milliseconds(300), scheduler: RunLoop.main).sink { [weak self] (eventSearchText) in
+            self?.eventsViewModel.searchLabelText = eventSearchText
+        }
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {

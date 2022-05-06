@@ -11,14 +11,14 @@ struct SearchResult: Decodable {
     let events: [Event]
 }
 
-struct Event: Decodable {
+struct Event: Decodable, UserDefaultsManagerProtocol {
     let id: Int
     let datetime_utc: String
     let venue: Venue
     let performers: [Performer]
     let title: String
     var isFavorite: Bool {
-        return UserDefaults.standard.getFavoritedEvents().contains(id)
+        return getFavoritedEvents().contains(id)
     }
 }
 

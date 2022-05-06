@@ -7,7 +7,7 @@
 
 import UIKit
 
-class EventDetailViewController: UIViewController {
+class EventDetailViewController: UIViewController, UserDefaultsManagerProtocol {
     
     private var eventViewModel: EventViewModel! {
         didSet {
@@ -62,10 +62,10 @@ class EventDetailViewController: UIViewController {
     
     @objc func handleLike() {
         if self.eventViewModel.isFavorite {
-            UserDefaults.standard.unfavoriteEvent(eventViewModel.eventId)
+            unfavoriteEvent(eventViewModel.eventId)
             likeButton.setImage(#imageLiteral(resourceName: "like_unselected"), for: .normal)
         } else {
-            UserDefaults.standard.favoriteEvent(eventViewModel.eventId)
+            favoriteEvent(eventViewModel.eventId)
             likeButton.setImage(#imageLiteral(resourceName: "like_selected"), for: .normal)
         }
     }

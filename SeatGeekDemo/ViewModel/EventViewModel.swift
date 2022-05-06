@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct EventViewModel: CellViewModelProtocol {
+struct EventViewModel: CellViewModelProtocol, UserDefaultsManagerProtocol {
     
     private let event: Event
     
@@ -41,7 +41,7 @@ struct EventViewModel: CellViewModelProtocol {
     }
     
     var isFavorite: Bool {
-        return UserDefaults.standard.getFavoritedEvents().contains(event.id)
+        return getFavoritedEvents().contains(event.id)
     }
     
 }

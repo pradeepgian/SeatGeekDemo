@@ -2,7 +2,7 @@
 //  ViewModelUtilities.swift
 //  SeatGeekDemo
 //
-//  Created by Pradeep3 G on 02/05/22.
+//  Created by Pradeep Gianchandani on 02/05/22.
 //
 
 import Foundation
@@ -13,14 +13,16 @@ enum ScreenState {
     case fetchEventsDataLoadingComplete
     case fetchMembersDataloadingError(error: Error?)
     case searchEventDataLoadingComplete
+    case likeEvent
+    case unlikeEvent
 }
 
 protocol CollectionViewCellViewModelProvider {
-    func getCellViewModel(for indexPath: IndexPath) -> CellViewModelProtocol?
+    func getCellViewModel(for indexPath: IndexPath) -> ViewModelProtocol?
 }
 
-protocol CellViewModelProtocol { }
+protocol ViewModelProtocol { }
 
-protocol ConfigureDataInCollectionViewCell {
-    func updateDataFromCellViewModel(_ viewModel: CellViewModelProtocol)
+protocol ConfigureDataInViewProtocol {
+    func updateDataInView(from viewModel: ViewModelProtocol)
 }

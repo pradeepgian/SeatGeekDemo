@@ -61,7 +61,7 @@ class SearchEventsViewController: UICollectionViewController, UICollectionViewDe
         setupSearchBarListener()
     }
     
-    var listener: AnyCancellable!
+    private var listener: AnyCancellable!
     
     private func setupSearchBarListener() {
         listener = NotificationCenter.default.publisher(for: UISearchTextField.textDidChangeNotification, object: searchController.searchBar.searchTextField).map {
@@ -93,7 +93,7 @@ class SearchEventsViewController: UICollectionViewController, UICollectionViewDe
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: EventCell.cellIdentifier, for: indexPath) as! EventCell
         if let eventViewModel = eventsViewModel.getCellViewModel(for: indexPath) {
-            cell.updateDataFromCellViewModel(eventViewModel)
+            cell.updateDataInView(from: eventViewModel)
         }
         if indexPath.item == eventsViewModel.events.count - 1 && !eventsViewModel.isPaginating {
             print("fetch more events")
@@ -103,7 +103,10 @@ class SearchEventsViewController: UICollectionViewController, UICollectionViewDe
     }
     
     override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        let eventDetailController = EventDetailViewController(event: eventsViewModel.events[indexPath.row])
+        let eventDetailController = EventDetailViewController()
+        if let eventViewModel = eventsViewModel.getCellViewModel(for: indexPath) {
+            eventDetailController.updateDataInView(from: eventViewModel)
+        }
         navigationController?.pushViewController(eventDetailController, animated: true)
     }
     

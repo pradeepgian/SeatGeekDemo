@@ -48,7 +48,7 @@ class EventsViewModel: CollectionViewCellViewModelProvider {
         }
     }
     
-    func getCellViewModel(for indexPath: IndexPath) -> CellViewModelProtocol? {
+    func getCellViewModel(for indexPath: IndexPath) -> ViewModelProtocol? {
         let eventViewModel = EventViewModel(event: events[indexPath.row])
         return eventViewModel
     }

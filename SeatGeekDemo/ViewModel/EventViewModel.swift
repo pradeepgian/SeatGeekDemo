@@ -7,7 +7,9 @@
 
 import Foundation
 
-struct EventViewModel: CellViewModelProtocol, UserDefaultsManagerProtocol {
+struct EventViewModel: ViewModelProtocol, UserDefaultsManagerProtocol {
+    
+    var screenState: Bindable<ScreenState> = Bindable(value: .idle)
     
     private let event: Event
     
@@ -42,6 +44,16 @@ struct EventViewModel: CellViewModelProtocol, UserDefaultsManagerProtocol {
     
     var isFavorite: Bool {
         return getFavoritedEvents().contains(event.id)
+    }
+    
+    func handleLikeButtonTap() {
+        if self.isFavorite {
+            unfavoriteEvent(eventId)
+            screenState.value = .unlikeEvent
+        } else {
+            favoriteEvent(eventId)
+            screenState.value = .likeEvent
+        }
     }
     
 }

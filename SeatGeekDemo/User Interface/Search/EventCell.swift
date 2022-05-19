@@ -8,7 +8,7 @@
 import UIKit
 import SDWebImage
 
-class EventCell: UICollectionViewCell, ConfigureDataInCollectionViewCell {
+class EventCell: UICollectionViewCell, ConfigureDataInViewProtocol {
     
     static let cellIdentifier = "EventCell_Identifier"
     
@@ -59,7 +59,7 @@ class EventCell: UICollectionViewCell, ConfigureDataInCollectionViewCell {
         self.backgroundView?.layer.shouldRasterize = true
     }
     
-    func updateDataFromCellViewModel(_ viewModel: CellViewModelProtocol) {
+    func updateDataInView(from viewModel: ViewModelProtocol) {
         let eventViewModel = viewModel as! EventViewModel
         eventImageView.sd_setImage(with: eventViewModel.eventImageUrl)
         eventNameLabel.text = eventViewModel.eventTitle
